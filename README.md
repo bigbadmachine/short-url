@@ -1,4 +1,4 @@
-# Decisiv Code Exercise
+# Code Exercise
 
 The purpose of this exercise is to gain some insight into your approach to analysis and implementation. Don't overthink it, don't spend too much time on it, and do have fun.
 
@@ -6,6 +6,7 @@ The purpose of this exercise is to gain some insight into your approach to analy
 Create a Rails web service that has the following behaviors:
 * Given a long URL, it will provide a short URL
 * Given a short URL that it generated, it will provide the corresponding long URL
+
 
 A URL shortener by itself is simply an apprentice project. 
 Let's make it somewhat more interesting by adding some requirements:
