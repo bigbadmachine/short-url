@@ -1,0 +1,6 @@
+%li
+  = image_tag 'link-icon'
+  .links
+    = link_to link_url(link.token), link_url(link.token), target: "_blank"
+    %br
+    %span= link_to link.url, link.url, target: "_blank"

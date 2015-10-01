@@ -1,0 +1,21 @@
+.row.text-center 
+  %h1= "URL Shortener"
+
+  = simple_form_for @link, :validation => true, method: :post do |f|
+    .fieldset
+      = f.input_field :url, label: false, placeholder: 'Paste in a link to shorten', autocomplete: "off", autocorrect: "off", autocapitalize: "off", value: nil
+      = f.button :submit, "Shorten"
+
+- if @recent_link
+  .row
+    %p.link_header Your newly shortened link
+    %ul.link_info
+      = render partial: "link", object: @recent_link
+      
+- else
+  .row
+    %p.link_header Recently shortened links
+    %ul.link_info
+      - Link.order('id desc').last(5).each do |link|
+        = render partial: "link", object: link
+        
