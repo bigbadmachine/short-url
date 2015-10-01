@@ -3,4 +3,4 @@
   .links
     = link_to link_url(link.token), link_url(link.token), target: "_blank"
     %br
-    %span= link_to link.url, link.url, target: "_blank"
+    %span= link_to truncate(link.url, length: 55), link.url, target: "_blank", title: link.url
