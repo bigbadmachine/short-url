@@ -50,6 +50,20 @@ RSpec.describe LinksController do
         assigns(:recent_link).should_not be_nil
       end
     end
+
+    context 'when duplicate URLs are shortened' do
+      it 'only creates one link' do
+        post :create, link: { url: 'google.com' }
+        link_1 = assigns(:recent_link)
+
+        post :create, link: { url: 'google.com' }
+        link_2 = assigns(:recent_link)
+
+        expect(link_1.id).to eq link_2.id
+        expect(link_1.token).to eq link_2.token
+      end
+    end
+
   end
 
 end

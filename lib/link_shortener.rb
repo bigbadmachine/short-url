@@ -19,8 +19,16 @@ module LinkShortener
   mattr_accessor :default_link
   self.default_link = "/"
 
-  def self.generate(length=token_length)
-    (0..length).map{ allowed_chars[rand(allowed_chars.size)] }.join
+  def self.generate(length=token_length, chars=allowed_chars)
+    sanitize( generate!(length, chars) )
+  end
+
+  def self.sanitize(token)
+    sanitized_token = token
+    BAD_WORDS.each do |word|
+      sanitized_token = sanitized_token.gsub(/(#{word})+/){ |match| generate!(match.length, clean_chars) }
+    end
+    sanitized_token
   end
 
   def self.clean_url(url)
@@ -35,5 +43,14 @@ module LinkShortener
 
     def self.allowed_chars
       CHARSETS[:alpha_lower] + CHARSETS[:alpha_upper] + CHARSETS[:num]
+    end
+
+    def self.clean_chars
+      chars = LinkShortener::BAD_WORDS.join.upcase + LinkShortener::BAD_WORDS.join.downcase
+      allowed_chars - chars.chars
+    end
+
+    def self.generate!(length=token_length, chars=allowed_chars)
+      (0..length-1).map{ chars[rand(chars.size)] }.join
     end
 end
